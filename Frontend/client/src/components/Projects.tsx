@@ -5,9 +5,9 @@ import { Button } from "../components/ui/button";
 import { ExternalLink, Github, Code, Cpu, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
 
-import restaurantImage from '@assets/generated_images/doctor_appoinment.jpeg';
-import studentImage from '@assets/generated_images/Student_management_app_mockup_7b7c2c9a.png';
-import tourismImage from '@assets/generated_images/weather_app.jpeg';
+import restaurantImage from '../../src/assets/doctor_appoinment.jpeg';
+import studentImage from '../assets/Student_management_app_mockup_7b7c2c9a.png';
+import tourismImage from '../../src/assets/weather_app.jpeg';
 const projects = [
   {
     id: 1,

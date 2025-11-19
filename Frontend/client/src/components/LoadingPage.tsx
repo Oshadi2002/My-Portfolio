@@ -22,7 +22,7 @@ const LoadingPage: React.FC = () => {
       {/* Profile photo */}
       <div style={styles.photoContainer}>
         <img
-          src="src\attached_assets\generated_images\loadingImg.jpg"
+          src="../../src/assets/loadingImg.jpg"
           alt="Kawshani"
           style={styles.photo}
         />
