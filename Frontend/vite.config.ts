@@ -13,14 +13,8 @@ export default defineConfig({
   },
   root: path.resolve(__dirname, "client"),
   build: {
-    outDir: "dist",
+     outDir: 'dist',
     emptyOutDir: true,
   },
   publicDir: path.resolve(__dirname, "client/public"),
-
-  server: {
-  host: "127.0.0.1", // force IPv4 localhost
-  port: 5175,        // any free port
-  strictPort: true   // fail if port is blocked
-},
 });
