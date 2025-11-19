@@ -47,7 +47,7 @@ export default function Hero() {
       <div className="flex-shrink-0 relative w-64 h-64 md:w-80 md:h-80 group">
         <div className="w-full h-full rounded-full overflow-hidden ring-4 ring-primary/20 shadow-xl transform group-hover:scale-105 transition duration-500">
           <img
-            src="dist/assets/pic1.jpg"
+            src="src\attached_assets\generated_images\pic1.jpg"
             alt="Oshadi Kawshani"
             className="w-full h-full object-cover"
           />
