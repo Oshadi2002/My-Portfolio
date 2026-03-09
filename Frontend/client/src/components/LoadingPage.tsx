@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import loadingImg from "../assets/loadingImg.jpg";
 
 const LoadingPage: React.FC = () => {
   const [progress, setProgress] = useState(0);
@@ -22,7 +23,7 @@ const LoadingPage: React.FC = () => {
       {/* Profile photo */}
       <div style={styles.photoContainer}>
         <img
-          src="../../src/assets/loadingImg.jpg"
+          src={loadingImg}
           alt="Kawshani"
           style={styles.photo}
         />

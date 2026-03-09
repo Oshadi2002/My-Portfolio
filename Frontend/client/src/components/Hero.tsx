@@ -13,6 +13,10 @@ import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { motion, useMotionValue, useSpring, AnimatePresence, useMotionTemplate } from "framer-motion";
 
+// --- Assets ---
+import profilePic from "../assets/pic1.jpg";
+import cvFile from "../assets/W.A.O.K.Rathna.pdf";
+
 // --- Typing animation hook ---
 function useTypingEffect(words: string[], speed = 80, pause = 1800) {
   const [displayed, setDisplayed] = useState("");
@@ -149,7 +153,7 @@ export default function Hero() {
   const handleDownloadCV = () => {
     setIsDownloading(true);
     const link = document.createElement("a");
-    link.href = "../../src/assets/W.A.O.K.Rathna.pdf";
+    link.href = cvFile;
     link.download = "W.A.O.K.Rathna_CV.pdf";
     document.body.appendChild(link);
     link.click();
@@ -254,7 +258,7 @@ export default function Hero() {
         {/* Image container */}
         <div className="relative w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden ring-4 ring-white/10 shadow-2xl bg-background z-10">
           <img
-            src="../../src/assets/pic1.jpg"
+            src={profilePic}
             alt="Oshadi Kawshani"
             className="w-full h-full object-cover"
           />
