@@ -3,10 +3,13 @@ import { Badge } from "../components/ui/badge";
 
 export default function About() {
   return (
-    <section id="about" className="relatipx-6 bg-gradient-to-b from-background via-background to-muted/10 overflow-hidden">
-      {/* Subtle floating gradients */}
-      <div className="absolute -top-32 -left-32 w-72 h-72 rounded-full bg-blue-500/20 blur-3xl animate-pulse"></div>
-      <div className="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-pink-500/10 blur-3xl animate-pulse"></div>
+    <section id="about" className="relative py-24 px-6 overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute top-40 right-10 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+      </div>
 
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Title */}
@@ -19,9 +22,9 @@ export default function About() {
           <div className="space-y-6">
             <h3 className="text-2xl font-semibold">Professional Profile</h3>
             <p className="text-muted-foreground leading-relaxed text-[15px]">
-              I'm currently pursuing a Higher National Diploma in Information Technology at SLIATE Labuduwa. 
-              My passion lies in creating efficient digital solutions that solve real-world problems. 
-              With a strong foundation in web development and mobile applications, I'm eager to contribute 
+              I'm currently pursuing a Higher National Diploma in Information Technology at SLIATE Labuduwa.
+              My passion lies in creating efficient digital solutions that solve real-world problems.
+              With a strong foundation in web development and mobile applications, I'm eager to contribute
               to innovative projects and grow as a professional developer.
             </p>
             <div className="flex gap-3">
@@ -77,6 +80,24 @@ export default function About() {
           </div>
         </div>
       </div>
+      {/* Custom animations */}
+      <style>{`
+        @keyframes blob {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+      `}</style>
     </section>
   );
 }
