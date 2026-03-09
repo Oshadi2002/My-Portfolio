@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
-import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { motion, useMotionValue, useSpring, AnimatePresence, useMotionTemplate } from "framer-motion";
 
 // --- Typing animation hook ---
 function useTypingEffect(words: string[], speed = 80, pause = 1800) {
@@ -77,16 +77,32 @@ function FloatingOrbs() {
 }
 
 // --- Animated grid lines ---
-function GridLines() {
+function GridLines({ mouseX, mouseY }: { mouseX: any; mouseY: any }) {
+  const maskImage = useMotionTemplate`radial-gradient(500px circle at ${mouseX}px ${mouseY}px, black 0%, transparent 100%)`;
+
   return (
-    <div
-      className="absolute inset-0 pointer-events-none opacity-[0.04]"
-      style={{
-        backgroundImage:
-          "linear-gradient(to right, #6366f1 1px, transparent 1px), linear-gradient(to bottom, #6366f1 1px, transparent 1px)",
-        backgroundSize: "60px 60px",
-      }}
-    />
+    <div className="absolute inset-0 pointer-events-none">
+      {/* Base static grid */}
+      <div
+        className="absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #6366f1 1px, transparent 1px), linear-gradient(to bottom, #6366f1 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+      {/* Reactive glowing grid */}
+      <motion.div
+        className="absolute inset-0 opacity-25"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #8b5cf6 1px, transparent 1px), linear-gradient(to bottom, #8b5cf6 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+          maskImage,
+          WebkitMaskImage: maskImage,
+        }}
+      />
+    </div>
   );
 }
 
@@ -153,13 +169,59 @@ export default function Hero() {
     transition: { duration: 0.7, delay, ease: [0.25, 0.46, 0.45, 0.94] },
   });
 
+  // Mouse tracking for the entire section spotlight
+  const sectionRef = useRef<HTMLElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const spotlightX = useSpring(mouseX, { stiffness: 100, damping: 20 });
+  const spotlightY = useSpring(mouseY, { stiffness: 100, damping: 20 });
+
+  const handleSectionMouseMove = (e: React.MouseEvent) => {
+    if (!sectionRef.current) return;
+    const { left, top } = sectionRef.current.getBoundingClientRect();
+    mouseX.set(e.clientX - left);
+    mouseY.set(e.clientY - top);
+  };
+
   return (
     <section
       id="hero"
+      ref={sectionRef}
+      onMouseMove={handleSectionMouseMove}
       className="relative min-h-screen flex flex-col md:flex-row items-center justify-center px-6 py-24 overflow-hidden gap-12"
       style={{ background: "linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--background)) 60%, hsl(240 10% 6%) 100%)" }}
     >
-      <GridLines />
+      {/* Interactive Spotlight Follower */}
+      <motion.div
+        className="absolute pointer-events-none z-0 opacity-40"
+        style={{
+          width: 800,
+          height: 800,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)",
+          left: spotlightX,
+          top: spotlightY,
+          translateX: "-50%",
+          translateY: "-50%",
+          filter: "blur(60px)",
+        }}
+      />
+      <motion.div
+        className="absolute pointer-events-none z-0 opacity-60"
+        style={{
+          width: 300,
+          height: 300,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 60%)",
+          left: spotlightX,
+          top: spotlightY,
+          translateX: "-50%",
+          translateY: "-50%",
+          filter: "blur(40px)",
+        }}
+      />
+
+      <GridLines mouseX={mouseX} mouseY={mouseY} />
       <FloatingOrbs />
 
       {/* === LEFT: Profile Image === */}
